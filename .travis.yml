@@ -1,0 +1,4 @@
+script:
+  - set -e
+  - curl -sfL https://github.com/c4milo/github-release/releases/download/v1.1.0/github-release_v1.1.0_linux_amd64.tar.gz | tar -xzvf -
+  - ./compile $TRAVIS_TAG
