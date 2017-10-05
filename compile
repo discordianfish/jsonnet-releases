@@ -1,0 +1,17 @@
+#/bin/bash
+set -euo pipefail
+VERSION=${1:-latest}
+ROOT=$PWD
+VERSIONS="0.9.3 0.9.4 0.9.5"
+
+mkdir -p releases
+git clone https://github.com/google/jsonnet
+cd jsonnet
+for v in $VERSIONS; do
+  git checkout v$v
+  make -j4
+  mv jsonnet $ROOT/releases/jsonnet-v$v
+  gzip $ROOT/releases/jsonnet-v$v
+done
+
+gh-release latency-at/jsonnet-releases $VERSION
